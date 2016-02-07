@@ -32,9 +32,11 @@ public class MainPanel extends JPanel
 
     public void addComponents()
     {
-        add(rapTA, BorderLayout.CENTER);
-
+        //Bottom Panel
         bottomPanel.add(testBtn);
+
+        //Main Panel
+        add(rapTA, BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);
     }
 }
