@@ -9,13 +9,17 @@ import java.awt.*;
 
 public class MainFrame
 {
-    final JFrame mainFrame = new JFrame();
-    final static JPanel containerPanel = new JPanel();
-    final static CardLayout cardLayout = new CardLayout(5, 5);
+    private final JFrame mainFrame = new JFrame();
+    private final static JPanel containerPanel = new JPanel();
+    private final static CardLayout cardLayout = new CardLayout(5, 5);
+    private final MainPanel mainPanel = new MainPanel();
+    private final SettingsPanel settingsPanel = new SettingsPanel();
 
     public MainFrame()
     {
-        addComponents();
+        //ContainerPanel
+        containerPanel.setBackground(Color.blue);
+        containerPanel.setLayout(cardLayout);
 
         mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -23,21 +27,19 @@ public class MainFrame
         mainFrame.setLocationRelativeTo(null);
         mainFrame.pack();
         mainFrame.setVisible(true);
-    }
 
-    public void addComponents()
-    {
-        containerPanel.setBackground(Color.blue);
-        containerPanel.setLayout(cardLayout);
-
-        MainPanel mainPanel = new MainPanel();
-        containerPanel.add(mainPanel, "Main");
-
-        SettingsPanel settingsPanel = new SettingsPanel();
-        containerPanel.add(settingsPanel, "Settings");
+        addComponents();
 
         cardLayout.show(containerPanel, "Main");
+    }
 
+    private void addComponents()
+    {
+        //ContainerPanel
+        containerPanel.add(mainPanel, "Main");
+        containerPanel.add(settingsPanel, "Settings");
+
+        //MainFrame
         mainFrame.add(containerPanel);
     }
 

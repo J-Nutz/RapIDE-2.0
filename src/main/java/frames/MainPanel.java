@@ -17,19 +17,23 @@ public class MainPanel extends JPanel
 
     public MainPanel()
     {
-        addComponents();
-
+        //MainPanel
+        setLayout(new BorderLayout(5, 5));
         setBackground(Color.red);
+
+        //BottomPanel
+        bottomPanel.setLayout(new FlowLayout());
+
+        //TestBtn
+        testBtn.addActionListener(e -> showPanel("Settings"));
+
+        addComponents();
     }
 
     public void addComponents()
     {
-        setLayout(new BorderLayout(5, 5));
         add(rapTA, BorderLayout.CENTER);
 
-        testBtn.addActionListener(e -> showPanel("Settings"));
-
-        bottomPanel.setLayout(new FlowLayout());
         bottomPanel.add(testBtn);
         add(bottomPanel, BorderLayout.SOUTH);
     }
