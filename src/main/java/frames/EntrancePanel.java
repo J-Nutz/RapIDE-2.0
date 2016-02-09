@@ -22,15 +22,13 @@ public class EntrancePanel extends JPanel
 
         usernameTF.setMaximumSize(new Dimension(100, 40));
         usernameTF.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         passwordPF.setMaximumSize(new Dimension(100, 40));
         passwordPF.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         loginBtn.setPreferredSize(new Dimension(100, 40));
         loginBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        loginBtn.addActionListener(e ->
-        {
-            showPanel("Main");
-        });
+        loginBtn.addActionListener(e -> showPanel("Main"));
 
         addComponents();
     }
@@ -39,7 +37,9 @@ public class EntrancePanel extends JPanel
     {
         add(Box.createVerticalGlue());
         add(usernameTF);
+        add(Box.createVerticalStrut(5));
         add(passwordPF);
+        add(Box.createVerticalStrut(15));
         add(loginBtn);
         add(Box.createVerticalGlue());
     }
