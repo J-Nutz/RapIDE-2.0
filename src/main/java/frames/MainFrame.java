@@ -15,6 +15,8 @@ public class MainFrame
     private final EntrancePanel entrancePanel = new EntrancePanel();
     private final MainPanel mainPanel = new MainPanel();
     private final SettingsPanel settingsPanel = new SettingsPanel();
+    private final DefaultListModel<String> rhymingWordsDLM = new DefaultListModel<>();
+    private JList<String> rhymingWordsList = new JList<>(rhymingWordsDLM);
 
     public MainFrame()
     {

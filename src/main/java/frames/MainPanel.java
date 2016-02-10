@@ -11,9 +11,12 @@ import static frames.MainFrame.showPanel;
 
 public class MainPanel extends JPanel
 {
-    final JTextArea rapTA = new JTextArea();
-    final JPanel bottomPanel = new JPanel();
-    final JButton testBtn = new JButton("Settings");
+    private final JTextArea rapTA = new JTextArea();
+    private final JPanel bottomPanel = new JPanel();
+    private final JButton testBtn = new JButton("Settings");
+    private final DefaultListModel<String> rhymingWordsDLM = new DefaultListModel<>();
+    private JList<String> rhymingWordsList = new JList<>(rhymingWordsDLM);
+    private final String[] emptyRhymeList = {"Click", "SomeBtn", "To", "Search", "For", "Rhyming", "Words"};
 
     public MainPanel()
     {
@@ -27,6 +30,13 @@ public class MainPanel extends JPanel
         //TestBtn
         testBtn.addActionListener(e -> showPanel("Settings"));
 
+        //RhymingList
+        for(String word : emptyRhymeList)
+        {
+            rhymingWordsDLM.addElement(word);
+        }
+
+
         addComponents();
     }
 
@@ -37,6 +47,7 @@ public class MainPanel extends JPanel
 
         //Main Panel
         add(rapTA, BorderLayout.CENTER);
+        add(rhymingWordsList, BorderLayout.EAST);
         add(bottomPanel, BorderLayout.SOUTH);
     }
 }
