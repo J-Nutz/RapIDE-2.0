@@ -19,8 +19,6 @@ public class EntrancePanel extends JPanel
 
     public EntrancePanel()
     {
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
         //Login Label
         loginStatusLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -33,7 +31,6 @@ public class EntrancePanel extends JPanel
         passwordPF.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         //LoginBtns
-        loginBtn.setMinimumSize(new Dimension(105, 42));
         loginBtn.setMaximumSize(new Dimension(105, 42));
         loginBtn.setBackground(Color.black);
         loginBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -44,6 +41,11 @@ public class EntrancePanel extends JPanel
             boolean goodCredentials = usernameTF.getText().equalsIgnoreCase("Jonah") && Arrays.equals(passwordPF.getPassword(), pass);
             if(goodCredentials)
             {
+                loginStatusLbl.setForeground(Color.black);
+                loginStatusLbl.setText("Please Enter Username And Password");
+                usernameTF.setText("Username");
+                passwordPF.setText("password");
+
                 showPanel("Main");
             }
             else
@@ -58,6 +60,8 @@ public class EntrancePanel extends JPanel
 
     private void addComponents()
     {
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
         add(Box.createVerticalGlue());
         add(loginStatusLbl);
         add(Box.createVerticalStrut(15));
@@ -68,5 +72,4 @@ public class EntrancePanel extends JPanel
         add(loginBtn);
         add(Box.createVerticalGlue());
     }
-
 }
