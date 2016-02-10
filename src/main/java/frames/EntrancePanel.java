@@ -33,9 +33,11 @@ public class EntrancePanel extends JPanel
         passwordPF.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         //LoginBtns
-        loginBtn.setPreferredSize(new Dimension(100, 40));
+        loginBtn.setMinimumSize(new Dimension(105, 42));
+        loginBtn.setMaximumSize(new Dimension(105, 42));
+        loginBtn.setBackground(Color.black);
         loginBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        loginBtn.setIcon(new ImageIcon(getClass().getResource("/login.png")));
+        loginBtn.setIcon(new ImageIcon(getClass().getResource("/loginBtn.png")));
         loginBtn.addActionListener(e ->
         {
             char[] pass = {'1', '2', '3', '4'};
@@ -46,6 +48,7 @@ public class EntrancePanel extends JPanel
             }
             else
             {
+                loginStatusLbl.setForeground(Color.red);
                 loginStatusLbl.setText("Invalid Username Or Password");
             }
         });
