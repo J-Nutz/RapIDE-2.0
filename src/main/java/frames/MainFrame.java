@@ -31,8 +31,6 @@ public class MainFrame
         mainFrame.setVisible(true);
 
         addComponents();
-
-        cardLayout.show(containerPanel, "Login");
     }
 
     private void addComponents()
@@ -44,6 +42,9 @@ public class MainFrame
 
         //MainFrame
         mainFrame.add(containerPanel);
+
+        //Which Panel To Show
+        cardLayout.show(containerPanel, "Login");
     }
 
     public static void showPanel(String panel)
