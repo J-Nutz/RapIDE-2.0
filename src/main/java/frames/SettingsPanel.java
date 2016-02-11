@@ -17,7 +17,7 @@ public class SettingsPanel extends JPanel
     public SettingsPanel()
     {
         //Settings Panel
-        setBackground(Color.pink);
+        setBackground(Color.gray);
 
         //HomeBtn
         homeBtn.addActionListener(e -> showPanel("Main"));
