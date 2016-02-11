@@ -19,16 +19,21 @@ public class EntrancePanel extends JPanel
 
     public EntrancePanel()
     {
+        //This
+        setBackground(Color.gray);
+
         //Login Label
         loginStatusLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         //UsernameTF
         usernameTF.setMaximumSize(new Dimension(100, 40));
         usernameTF.setAlignmentX(Component.CENTER_ALIGNMENT);
+        usernameTF.setBorder(null);
 
         //PasswordPF
         passwordPF.setMaximumSize(new Dimension(100, 40));
         passwordPF.setAlignmentX(Component.CENTER_ALIGNMENT);
+        passwordPF.setBorder(null);
 
         //LoginBtns
         loginBtn.setMaximumSize(new Dimension(105, 42));
