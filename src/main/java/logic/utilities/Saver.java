@@ -15,6 +15,11 @@ public class Saver
 {
     String fileName;
 
+    public Saver()
+    {
+
+    }
+
     public void save(JTextPane textPane) throws IOException
     {
         FileWriter fileWriter = new FileWriter(new File(Strings.savesDir, getFileName() + ".txt"));

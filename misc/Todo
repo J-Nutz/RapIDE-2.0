@@ -1,12 +1,12 @@
-
-
+Decisions:
+    - New Pane for deleting/renaming/etc?
 
 Features To Implement:
     - Interface for Panels?
     - Swing Worker for API Hit
     - Login Screen?
     - Settings
-    -
+    - DocumentFilter for JTextPane
 
 Bugs:
     -

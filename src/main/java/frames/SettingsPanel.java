@@ -11,13 +11,18 @@ import static frames.MainFrame.showPanel;
 
 public class SettingsPanel extends JPanel
 {
+    private final JPanel bottomPanel = new JPanel(new FlowLayout());
     private final JButton homeBtn = new JButton("Back To Home");
     private final JButton logoutBtn = new JButton("Log Out");
 
     public SettingsPanel()
     {
         //Settings Panel
+        setLayout(new BorderLayout());
         setBackground(Color.gray);
+
+        //BottomPanel
+        bottomPanel.setBackground(Color.lightGray);
 
         //HomeBtn
         homeBtn.addActionListener(e -> showPanel("Main"));
@@ -30,7 +35,9 @@ public class SettingsPanel extends JPanel
 
     private void addComponents()
     {
-        add(homeBtn);
-        add(logoutBtn);
+        bottomPanel.add(homeBtn);
+        bottomPanel.add(logoutBtn);
+
+        add(bottomPanel, BorderLayout.SOUTH);
     }
 }

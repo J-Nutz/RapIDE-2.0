@@ -7,6 +7,7 @@ package frames;
 import logic.utilities.Saver;
 
 import javax.swing.*;
+import javax.swing.text.*;
 import java.awt.*;
 import java.io.IOException;
 
@@ -15,7 +16,7 @@ import static frames.MainFrame.showPanel;
 public class MainPanel extends JPanel
 {
     private final JTextPane rapTP = new JTextPane();
-    private final JPanel bottomPanel = new JPanel();
+    private final JPanel bottomPanel = new JPanel(new FlowLayout());
     private final JButton settingsBtn = new JButton("Settings");
     private final JButton saveBtn = new JButton("Save");
     private final DefaultListModel<String> rhymingWordsDLM = new DefaultListModel<>();
@@ -29,11 +30,12 @@ public class MainPanel extends JPanel
         setBackground(Color.gray);
 
         //BottomPanel
-        bottomPanel.setLayout(new FlowLayout());
+        bottomPanel.setBackground(Color.lightGray);
 
-        //TestBtn
+        //SettingsBtn
         settingsBtn.addActionListener(e -> showPanel("Settings"));
 
+        //SaveBtn
         saveBtn.addActionListener(e -> {
             try
             {
@@ -53,10 +55,25 @@ public class MainPanel extends JPanel
             rhymingWordsDLM.addElement(word);
         }
 
+        //RapTP
+        StyledDocument styledDocument = rapTP.getStyledDocument();
+        SimpleAttributeSet center = new SimpleAttributeSet();
+        StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+        styledDocument.setParagraphAttributes(0, styledDocument.getLength(), center, false);
+
+        try
+        {
+            styledDocument.insertString(styledDocument.getLength(), "Title", center);
+        }
+        catch(BadLocationException e)
+        {
+            e.printStackTrace();
+        }
+
         addComponents();
     }
 
-    public void addComponents()
+    private void addComponents()
     {
         //Bottom Panel
         bottomPanel.add(saveBtn);
