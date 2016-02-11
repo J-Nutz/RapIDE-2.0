@@ -4,6 +4,8 @@ package frames;
  * Created by Jonah on 2/5/2016.
  */
 
+import logic.utilities.FolderCreator;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -15,16 +17,16 @@ public class MainFrame
     private final EntrancePanel entrancePanel = new EntrancePanel();
     private final MainPanel mainPanel = new MainPanel();
     private final SettingsPanel settingsPanel = new SettingsPanel();
-    private final DefaultListModel<String> rhymingWordsDLM = new DefaultListModel<>();
-    private JList<String> rhymingWordsList = new JList<>(rhymingWordsDLM);
+    private final FolderCreator folderCreator = new FolderCreator();
 
     public MainFrame()
     {
         //ContainerPanel
-        containerPanel.setBackground(Color.blue);
+        containerPanel.setBackground(Color.gray);
         containerPanel.setLayout(cardLayout);
 
         //MainFrame
+        mainFrame.setBackground(Color.gray);
         mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         mainFrame.setPreferredSize(new Dimension(750, 650));
