@@ -1,0 +1,24 @@
+/*String[] components = {"n"};
+        String[] styles = {"CENTER_ALIGN"};
+
+        StyledDocument sd = rapTP.getStyledDocument();
+        Style DEFAULT_STYLE = StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE);
+
+        Style LEFT_STYLE = sd.addStyle("LEFT_ALIGN", DEFAULT_STYLE);
+        StyleConstants.setAlignment(LEFT_STYLE, StyleConstants.ALIGN_LEFT);
+
+        Style CENTER_STYLE = sd.addStyle("CENTER_ALIGN", DEFAULT_STYLE);
+        StyleConstants.setAlignment(CENTER_STYLE, StyleConstants.ALIGN_CENTER);
+
+        for(int i = 0; i < components.length; i++)
+        {
+            try
+            {
+                sd.insertString(sd.getLength(), components[i], sd.getStyle(styles[i]));
+                sd.setLogicalStyle(sd.getLength(), sd.getStyle(styles[i]));
+            }
+            catch(BadLocationException e)
+            {
+                e.printStackTrace();
+            }
+        }*/
