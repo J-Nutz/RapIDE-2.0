@@ -48,6 +48,7 @@ public class EntrancePanel extends JPanel
             {
                 loginStatusLbl.setForeground(Color.black);
                 loginStatusLbl.setText("Please Enter Username And Password");
+
                 usernameTF.setText("Username");
                 passwordPF.setText("password");
 
@@ -57,6 +58,8 @@ public class EntrancePanel extends JPanel
             {
                 loginStatusLbl.setForeground(Color.red);
                 loginStatusLbl.setText("Invalid Username Or Password");
+
+                showPanel("Main");
             }
         });
 
