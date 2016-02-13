@@ -24,10 +24,12 @@ public class MainPanel extends JPanel
     private final JTextPane rapTP = new JTextPane();
     private final JTextField titleTF = new JTextField("Enter Title");
 
-    private final JComboBox<String> filesCB = new JComboBox<>();
+    private final JComboBox<String> saveFilesCB = new JComboBox<>();
+    private final JComboBox<String> deleteFilesCB = new JComboBox<>();
 
     private final JButton saveBtn = new JButton("Save");
     private final JButton openBtn = new JButton("Open File");
+    private final JButton deleteBtn = new JButton("Delete File");
     private final JButton settingsBtn = new JButton("Settings");
 
     private final DefaultListModel<String> rhymingWordsDLM = new DefaultListModel<>();
@@ -53,9 +55,13 @@ public class MainPanel extends JPanel
         //BottomPanel
         bottomPanel.setBackground(Color.lightGray);
 
-        //FilesCB
-        fileUtils.getFiles(filesCB, Strings.savesDir);
-        filesCB.setVisible(false);
+        //SaveFilesCB
+        fileUtils.getFiles(saveFilesCB, Strings.savesDir);
+        saveFilesCB.setVisible(false);
+
+        //DeleteFilesCB
+        fileUtils.getFiles(deleteFilesCB, Strings.savesDir);
+        deleteFilesCB.setVisible(false);
 
         //SaveBtn
         saveBtn.addActionListener(e ->
@@ -65,7 +71,7 @@ public class MainPanel extends JPanel
                 saver.setFileName(titleTF.getText());
                 saver.save(rapTP);
                 System.out.println("Saving: " + titleTF.getText());
-                fileUtils.getFiles(filesCB, Strings.savesDir);
+                fileUtils.getFiles(saveFilesCB, Strings.savesDir);
             }
             catch(IOException e1)
             {
@@ -76,27 +82,46 @@ public class MainPanel extends JPanel
         //OpenBtn
         final boolean[] savesShowing = {false};
 
-        openBtn.addActionListener(new ActionListener()
+        openBtn.addActionListener(e ->
         {
-            @Override
-            public void actionPerformed(ActionEvent e)
+            if(!savesShowing[0])
             {
-                if(!savesShowing[0])
-                {
-                    openBtn.setText("Select");
-                    filesCB.setVisible(true);
-                    savesShowing[0] = true;
-                }
-                else
-                {
-                    openBtn.setText("Open File");
-                    fileUtils.loadFile(rapTP, Strings.savesDir, filesCB.getSelectedItem().toString());
-                    filesCB.setVisible(false);
-                    savesShowing[0] = false;
-                }
-                topPanel.repaint();
-                topPanel.revalidate();
+                openBtn.setText("Select");
+                saveFilesCB.setVisible(true);
+                savesShowing[0] = true;
             }
+            else
+            {
+                openBtn.setText("Open File");
+                fileUtils.loadFile(rapTP, Strings.savesDir, saveFilesCB.getSelectedItem().toString());
+                saveFilesCB.setVisible(false);
+                savesShowing[0] = false;
+            }
+            /*topPanel.repaint();
+            topPanel.revalidate();*/
+        });
+
+        //DeleteBtn
+        final boolean[] deleteSavesShowing = {false};
+
+        deleteBtn.addActionListener(e1 ->
+        {
+            if(!deleteSavesShowing[0])
+            {
+                deleteBtn.setText("Delete");
+                deleteFilesCB.setVisible(true);
+                deleteSavesShowing[0] = true;
+            }
+            else
+            {
+                fileUtils.deleteFile(rapTP, Strings.savesDir, deleteFilesCB.getSelectedItem().toString());
+                fileUtils.getFiles(deleteFilesCB, Strings.savesDir);
+                fileUtils.getFiles(saveFilesCB, Strings.savesDir);
+                deleteBtn.setText("Delete File");
+                deleteFilesCB.setVisible(false);
+                deleteSavesShowing[0] = false;
+            }
+
         });
 
         //SettingsBtn
@@ -121,8 +146,10 @@ public class MainPanel extends JPanel
 
         //Bottom Panel
         bottomPanel.add(saveBtn);
-        bottomPanel.add(filesCB);
+        bottomPanel.add(saveFilesCB);
         bottomPanel.add(openBtn);
+        bottomPanel.add(deleteFilesCB);
+        bottomPanel.add(deleteBtn);
         bottomPanel.add(settingsBtn);
 
         //Main Panel

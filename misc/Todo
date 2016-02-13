@@ -4,10 +4,9 @@ Decisions:
 Features To Implement:
     - Interface for Panels?
     - Swing Worker for API Hit
-    - Login Screen?
     - Settings
-    - DocumentFilter for JTextPane
+    - Better Util Classes
 
 Bugs:
-    -
+    - TitleTF doesn't get updated
 
