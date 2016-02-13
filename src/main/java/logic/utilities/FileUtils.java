@@ -4,9 +4,6 @@ package logic.utilities;
  * Created by Jonah on 2/12/2016.
  */
 
-import frames.MainFrame;
-import local.Strings;
-
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import java.io.File;

@@ -10,8 +10,6 @@ import logic.utilities.Saver;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import static frames.MainFrame.showPanel;
@@ -97,8 +95,6 @@ public class MainPanel extends JPanel
                 saveFilesCB.setVisible(false);
                 savesShowing[0] = false;
             }
-            /*topPanel.repaint();
-            topPanel.revalidate();*/
         });
 
         //DeleteBtn
@@ -133,8 +129,6 @@ public class MainPanel extends JPanel
         {
             rhymingWordsDLM.addElement(word);
         }
-
-        //RapTP
 
         addComponents();
     }
