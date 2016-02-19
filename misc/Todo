@@ -7,8 +7,12 @@ Features To Implement:
     - Settings
     - Better Util Classes
     - "Create" button that then shows "Save" button after file is created or loaded?
+
+Features Implemented:
     - Only delete rap pane content if file deleted is one currently loaded
 
 Bugs:
-    - TitleTF doesn't get updated
+    -
 
+Bugs Fixed:
+    - TitleTF doesn't get updated
