@@ -13,8 +13,6 @@ import java.io.IOException;
 
 public class FileUtils
 {
-    String fileName;
-
     public FileUtils()
     {
 
@@ -22,21 +20,21 @@ public class FileUtils
 
     public void loadFile(JTextPane pane, JTextField field, String path, String file)
     {
-        fileName = file;
-
         try
         {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(path + file));
 
             field.setText(bufferedReader.readLine());
-            pane.setText("");
 
+            pane.setText("");
             pane.read(bufferedReader, "Default");
+
             bufferedReader.close();
         }
         catch(IOException e)
         {
             e.printStackTrace();
+            System.out.println("Error Loading File: " + e.getMessage());
         }
     }
 
@@ -45,11 +43,11 @@ public class FileUtils
         cb.removeAllItems();
 
         File savesFolder = new File(path);
-        File[] listOfFiles = savesFolder.listFiles();
+        File[] listOfSaves = savesFolder.listFiles();
 
-        if(listOfFiles != null)
+        if(listOfSaves != null)
         {
-            for(File file : listOfFiles)
+            for(File file : listOfSaves)
             {
                 if(file.isFile())
                 {
@@ -57,7 +55,7 @@ public class FileUtils
                 }
                 else if(file.isDirectory())
                 {
-                    System.out.println("No Files");
+                    System.out.println("Tried To Add Folder");
                 }
             }
         }
@@ -79,7 +77,7 @@ public class FileUtils
         }
         catch(Exception de)
         {
-            System.out.println("DeleterPane Error: " + de);
+            System.out.println("Error Deleting File: " + de.getMessage());
         }
     }
 }
