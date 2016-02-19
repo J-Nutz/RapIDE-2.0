@@ -6,6 +6,8 @@ Features To Implement:
     - Swing Worker for API Hit
     - Settings
     - Better Util Classes
+    - "Create" button that then shows "Save" button after file is created or loaded?
+    - Only delete rap pane content if file deleted is one currently loaded
 
 Bugs:
     - TitleTF doesn't get updated

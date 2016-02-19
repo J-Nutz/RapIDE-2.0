@@ -67,7 +67,7 @@ public class MainPanel extends JPanel
             try
             {
                 saver.setFileName(titleTF.getText());
-                saver.save(rapTP);
+                saver.save(rapTP, titleTF);
                 System.out.println("Saving: " + titleTF.getText());
                 fileUtils.getFiles(saveFilesCB, Strings.savesDir);
             }
@@ -91,7 +91,7 @@ public class MainPanel extends JPanel
             else
             {
                 openBtn.setText("Open File");
-                fileUtils.loadFile(rapTP, Strings.savesDir, saveFilesCB.getSelectedItem().toString());
+                fileUtils.loadFile(rapTP, titleTF, Strings.savesDir, saveFilesCB.getSelectedItem().toString());
                 saveFilesCB.setVisible(false);
                 savesShowing[0] = false;
             }
@@ -110,14 +110,13 @@ public class MainPanel extends JPanel
             }
             else
             {
-                fileUtils.deleteFile(rapTP, Strings.savesDir, deleteFilesCB.getSelectedItem().toString());
+                fileUtils.deleteFile(rapTP, titleTF, Strings.savesDir, deleteFilesCB.getSelectedItem().toString());
                 fileUtils.getFiles(deleteFilesCB, Strings.savesDir);
                 fileUtils.getFiles(saveFilesCB, Strings.savesDir);
                 deleteBtn.setText("Delete File");
                 deleteFilesCB.setVisible(false);
                 deleteSavesShowing[0] = false;
             }
-
         });
 
         //SettingsBtn

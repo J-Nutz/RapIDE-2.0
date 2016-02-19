@@ -6,9 +6,10 @@ package logic.utilities;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.Reader;
+import java.io.IOException;
 
 public class FileUtils
 {
@@ -19,21 +20,23 @@ public class FileUtils
 
     }
 
-    public void loadFile(JTextComponent component, String path, String file)
+    public void loadFile(JTextPane pane, JTextField field, String path, String file)
     {
-        Reader mReader;
-
         fileName = file;
 
         try
         {
-            mReader = new FileReader(new File(path + file + ".txt"));
-            component.read(mReader, "What? Lol.");
-            mReader.close();
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(path + file));
+
+            field.setText(bufferedReader.readLine());
+            pane.setText("");
+
+            pane.read(bufferedReader, "Default");
+            bufferedReader.close();
         }
-        catch (Exception ex)
+        catch(IOException e)
         {
-            ex.printStackTrace();
+            e.printStackTrace();
         }
     }
 
@@ -50,7 +53,7 @@ public class FileUtils
             {
                 if(file.isFile())
                 {
-                    cb.addItem(file.getName().replace(".txt", ""));
+                    cb.addItem(file.getName());
                 }
                 else if(file.isDirectory())
                 {
@@ -60,15 +63,18 @@ public class FileUtils
         }
     }
 
-    public void deleteFile(JTextComponent component, String path, String file)
+    public void deleteFile(JTextComponent component, JTextField textField, String path, String file)
     {
         try
         {
-            File fileToDelete = new File(path + file + ".txt");
+            File fileToDelete = new File(path + file);
 
             if(fileToDelete.delete())
             {
-                component.setText("");
+                if(textField.getText().equals(file))
+                {
+                    component.setText("");
+                }
             }
         }
         catch(Exception de)

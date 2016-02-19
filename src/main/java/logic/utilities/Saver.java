@@ -20,15 +20,16 @@ public class Saver
 
     }
 
-    public void save(JTextPane textPane) throws IOException
+    public void save(JTextPane textPane, JTextField titleField) throws IOException
     {
-        FileWriter fileWriter = new FileWriter(new File(Strings.savesDir, getFileName() + ".txt"));
+        FileWriter fileWriter = new FileWriter(new File(Strings.savesDir, getFileName()));
 
         SwingWorker<Void, Void> saver = new SwingWorker<Void, Void>()
         {
             @Override
             protected Void doInBackground() throws Exception
             {
+                fileWriter.write(titleField.getText() + "\n");
                 fileWriter.write(textPane.getText());
 
                 return null;
