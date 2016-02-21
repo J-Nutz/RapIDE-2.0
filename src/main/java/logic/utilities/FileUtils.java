@@ -72,6 +72,7 @@ public class FileUtils
                 if(textField.getText().equals(file))
                 {
                     component.setText("");
+                    System.out.println("Deleting: " + file);
                 }
             }
         }

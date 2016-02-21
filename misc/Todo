@@ -10,6 +10,8 @@ Features To Implement:
 
 Features Implemented:
     - Only delete rap pane content if file deleted is one currently loaded
+    - Only be able to have one function (Open, Load, Delete) CB open at a time
+    - Cancel button to cancel loading / deleting / etc
 
 Bugs:
     -
