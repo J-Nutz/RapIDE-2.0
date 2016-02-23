@@ -1,12 +1,12 @@
 Decisions:
     - New Pane for deleting/renaming/etc?
+    - "Create" button that then shows "Save" button after file is created or loaded?
 
 Features To Implement:
     - Interface for Panels?
     - Swing Worker for API Hit
     - Settings
     - Better Util Classes
-    - "Create" button that then shows "Save" button after file is created or loaded?
 
 Features Implemented:
     - Only delete rap pane content if file deleted is one currently loaded

@@ -36,7 +36,7 @@ public class EntrancePanel extends JPanel
         passwordPF.setBorder(null);
 
         //LoginBtns
-        loginBtn.setMaximumSize(new Dimension(105, 42));
+        loginBtn.setMaximumSize(new Dimension(110, 40));
         loginBtn.setBackground(Color.black);
         loginBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         loginBtn.setIcon(new ImageIcon(getClass().getResource("/loginBtn.png")));
@@ -44,7 +44,7 @@ public class EntrancePanel extends JPanel
         {
             char[] pass = {'1', '2', '3', '4'};
             boolean goodCredentials = usernameTF.getText().equalsIgnoreCase("Jonah") && Arrays.equals(passwordPF.getPassword(), pass);
-            if(goodCredentials)
+            if(!goodCredentials)
             {
                 loginStatusLbl.setForeground(Color.black);
                 loginStatusLbl.setText("Please Enter Username And Password");
@@ -58,8 +58,6 @@ public class EntrancePanel extends JPanel
             {
                 loginStatusLbl.setForeground(Color.red);
                 loginStatusLbl.setText("Invalid Username Or Password");
-
-                showPanel("Main");
             }
         });
 

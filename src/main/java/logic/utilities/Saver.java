@@ -13,16 +13,14 @@ import java.io.IOException;
 
 public class Saver
 {
-    String fileName;
-
     public Saver()
     {
-
+        System.out.println("Saver Loaded");
     }
 
     public void save(JTextPane textPane, JTextField titleField) throws IOException
     {
-        FileWriter fileWriter = new FileWriter(new File(Strings.savesDir, getFileName()));
+        FileWriter fileWriter = new FileWriter(new File(Strings.savesDir, titleField.getText()));
 
         SwingWorker<Void, Void> saver = new SwingWorker<Void, Void>()
         {
@@ -56,15 +54,5 @@ public class Saver
         };
 
         saver.execute();
-    }
-
-    public void setFileName(String fileName)
-    {
-        this.fileName = fileName;
-    }
-
-    public String getFileName()
-    {
-        return fileName;
     }
 }

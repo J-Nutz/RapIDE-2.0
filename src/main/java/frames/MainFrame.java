@@ -4,7 +4,7 @@ package frames;
  * Created by Jonah on 2/5/2016.
  */
 
-import logic.utilities.FolderCreator;
+import logic.utilities.FileUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,10 +17,12 @@ public class MainFrame
     private final EntrancePanel entrancePanel = new EntrancePanel();
     private final MainPanel mainPanel = new MainPanel();
     private final SettingsPanel settingsPanel = new SettingsPanel();
-    private final FolderCreator folderCreator = new FolderCreator();
 
     public MainFrame()
     {
+        FileUtils fileUtils = new FileUtils();
+        fileUtils.createBaseFolders();
+
         //ContainerPanel
         containerPanel.setBackground(Color.gray);
         containerPanel.setLayout(cardLayout);
@@ -29,7 +31,7 @@ public class MainFrame
         mainFrame.setBackground(Color.gray);
         mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        mainFrame.setPreferredSize(new Dimension(750, 650));
+        //mainFrame.setPreferredSize(new Dimension(750, 650));
         mainFrame.setLocationRelativeTo(null);
         mainFrame.pack();
         mainFrame.setVisible(true);

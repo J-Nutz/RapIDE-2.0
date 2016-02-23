@@ -111,10 +111,10 @@ public class MainPanel extends JPanel
         {
             try
             {
-                saver.setFileName(titleTF.getText());
                 saver.save(rapTP, titleTF);
                 System.out.println("Saving: " + titleTF.getText());
                 fileUtils.getFiles(saveFilesCB, Strings.savesDir);
+                fileUtils.getFiles(deleteFilesCB, Strings.savesDir);
             }
             catch(IOException e1)
             {
@@ -136,14 +136,31 @@ public class MainPanel extends JPanel
         //DeleteBtn
         deleteBtn.addActionListener(e1 ->
         {
-            resetOpenCB();
+            Timer deleteTimer;
 
-            if(!setShowing(deleteSavesShowing, deleteBtn, deleteFilesCB, "Delete Files", "Delete"))
+            if(fileUtils.hasFiles(Strings.savesDir))
             {
-                fileUtils.deleteFile(rapTP, titleTF, Strings.savesDir, deleteFilesCB.getSelectedItem().toString());
-                fileUtils.getFiles(deleteFilesCB, Strings.savesDir);
-                fileUtils.getFiles(saveFilesCB, Strings.savesDir);
+                if(!setShowing(deleteSavesShowing, deleteBtn, deleteFilesCB, "Delete Files", "Delete"))
+                {
+                    fileUtils.deleteFile(rapTP, titleTF, Strings.savesDir, deleteFilesCB.getSelectedItem().toString());
+                    fileUtils.getFiles(deleteFilesCB, Strings.savesDir);
+                    fileUtils.getFiles(saveFilesCB, Strings.savesDir);
+                }
             }
+            else
+            {
+                deleteBtn.setText("No Files");
+                deleteTimer = new Timer(1500, null);
+                deleteTimer.addActionListener(e ->
+                {
+                    deleteBtn.setText("Delete File");
+                    deleteTimer.stop();
+                });
+
+                deleteTimer.start();
+            }
+
+            resetOpenCB();
         });
 
         //CancelBtn
