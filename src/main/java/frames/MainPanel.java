@@ -29,6 +29,7 @@ public class MainPanel extends JPanel
     private final JComboBox<String> deleteFilesCB = new JComboBox<>();
 
     private final JButton insertBtn = new JButton("Insert");
+    private final JButton createBtn = new JButton("Create");
     private final JButton saveBtn = new JButton("Save");
     private final JButton openBtn = new JButton("Open File");
     private final JButton deleteBtn = new JButton("Delete Files");
@@ -96,6 +97,13 @@ public class MainPanel extends JPanel
             }
 
             rapTP.requestFocus();
+        });
+
+        //CreateBtn
+        createBtn.addActionListener(e ->
+        {
+            rapTP.setText("");
+            titleTF.setText("Enter Title");
         });
 
         //SaveBtn
@@ -211,6 +219,7 @@ public class MainPanel extends JPanel
         rightPanel.add(insertBtn);
 
         //Bottom Panel
+        bottomPanel.add(createBtn);
         bottomPanel.add(saveBtn);
         bottomPanel.add(saveFilesCB);
         bottomPanel.add(openBtn);
