@@ -191,7 +191,7 @@ public class MainPanel extends JPanel
         {
             resetOpenCB();
             resetDeleteCB();
-            resetSeachTF();
+            resetSearchTF();
             cancelBtn.setVisible(false);
         });
 
@@ -247,7 +247,7 @@ public class MainPanel extends JPanel
         savesShowing[0] = false;
     }
 
-    private void resetSeachTF()
+    private void resetSearchTF()
     {
         searchTF.setVisible(false);
         searchBtn.setText("Rhyming Words");
