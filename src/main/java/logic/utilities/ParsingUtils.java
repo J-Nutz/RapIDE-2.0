@@ -80,7 +80,7 @@ public class ParsingUtils
         }
         finally
         {
-            if(rhymes == null)
+            if(rhymes == null || rhymes.length == 0)
             {
                 rhymes = new String[]{"No", "Rhymes"};
             }

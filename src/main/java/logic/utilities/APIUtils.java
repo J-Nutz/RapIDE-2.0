@@ -72,11 +72,18 @@ public class APIUtils
                 ParsingUtils parsingUtils = new ParsingUtils();
                 String[] rhymingWords = parsingUtils.parseXML("result", xmlSave);
 
-                for(String rhymeWord : rhymingWords)
+                if(rhymingWords[0].equals(" "))
                 {
-                    dlm.addElement(rhymeWord);
+                    for(String rhymeWord : rhymingWords)
+                    {
+                        dlm.addElement(rhymeWord);
+                    }
                 }
-
+                else
+                {
+                    dlm.addElement("No");
+                    dlm.addElement("Rhymes");
+                }
             }
         };
         apiWorker.execute();
