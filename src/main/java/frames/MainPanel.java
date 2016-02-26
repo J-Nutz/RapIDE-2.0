@@ -4,7 +4,8 @@ package frames;
  * Created by Jonah on 2/5/2016.
  */
 
-import local.Strings;
+import global.Strings;
+import logic.utilities.APIUtils;
 import logic.utilities.FileUtils;
 import logic.utilities.Saver;
 
@@ -24,6 +25,7 @@ public class MainPanel extends JPanel
 
     private final JTextPane rapTP = new JTextPane();
     private final JTextField titleTF = new JTextField("Enter Title");
+    private final JTextField searchTF = new JTextField("Enter Word");
 
     private final JComboBox<String> saveFilesCB = new JComboBox<>();
     private final JComboBox<String> deleteFilesCB = new JComboBox<>();
@@ -34,6 +36,7 @@ public class MainPanel extends JPanel
     private final JButton openBtn = new JButton("Open File");
     private final JButton deleteBtn = new JButton("Delete Files");
     private final JButton settingsBtn = new JButton("Settings");
+    private final JButton searchBtn = new JButton("Rhyming Words");
     private final JButton cancelBtn = new JButton("Cancel");
 
     private final DefaultListModel<String> rhymingWordsDLM = new DefaultListModel<>();
@@ -47,6 +50,7 @@ public class MainPanel extends JPanel
 
     final boolean[] deleteSavesShowing = {false};
     final boolean[] savesShowing = {false};
+    final boolean[] searchShowing = {false};
 
     public MainPanel()
     {
@@ -61,11 +65,14 @@ public class MainPanel extends JPanel
         rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
         rightPanel.setPreferredSize(new Dimension(100, this.getHeight()));
 
-        //TitleTF2
+        //TitleTF
         titleTF.setHorizontalAlignment(JTextField.CENTER);
         titleTF.setPreferredSize(new Dimension(150, 40));
         titleTF.setBorder(null);
         titleTF.setFont(new Font("Arial", Font.PLAIN, 22));
+
+        //searchTF
+        searchTF.setVisible(false);
 
         //BottomPanel
         bottomPanel.setBackground(Color.lightGray);
@@ -163,6 +170,18 @@ public class MainPanel extends JPanel
             resetOpenCB();
         });
 
+        //searchBtn
+        searchBtn.addActionListener(e ->
+        {
+            if(!setShowing(searchShowing, searchBtn, searchTF, "Rhyming Words", "Search"))
+            {
+                rhymingWordsDLM.removeAllElements();
+
+                APIUtils apiUtils = new APIUtils();
+                apiUtils.hitAPI("http://www.stands4.com/services/v2/rhymes.php?uid=4396&tokenid=7ok5aFMY8y0i0HP1&term=", searchTF.getText(), "50", rhymingWordsDLM);
+            }
+        });
+
         //CancelBtn
         cancelBtn.setVisible(false);
 
@@ -190,13 +209,13 @@ public class MainPanel extends JPanel
         addComponents();
     }
 
-    private boolean setShowing(boolean[] showing, JButton button, JComboBox<String> comboBox, String message, String message2)
+    private boolean setShowing(boolean[] showing, JButton button, JComponent component, String message, String message2)
     {
         if(showing[0] && button.getText().equals(message2))
         {
             showing[0] = false;
             button.setText(message);
-            comboBox.setVisible(showing[0]);
+            component.setVisible(showing[0]);
             cancelBtn.setVisible(false);
             return false;
         }
@@ -204,7 +223,7 @@ public class MainPanel extends JPanel
         {
             showing[0] = true;
             button.setText(message2);
-            comboBox.setVisible(showing[0]);
+            component.setVisible(showing[0]);
             cancelBtn.setVisible(true);
             return true;
         }
@@ -243,6 +262,8 @@ public class MainPanel extends JPanel
         bottomPanel.add(deleteFilesCB);
         bottomPanel.add(deleteBtn);
         bottomPanel.add(settingsBtn);
+        bottomPanel.add(searchTF);
+        bottomPanel.add(searchBtn);
         bottomPanel.add(cancelBtn);
 
         //Main Panel

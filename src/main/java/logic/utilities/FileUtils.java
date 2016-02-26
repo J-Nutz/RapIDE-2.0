@@ -4,7 +4,7 @@ package logic.utilities;
  * Created by Jonah on 2/12/2016.
  */
 
-import local.Strings;
+import global.Strings;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
@@ -99,8 +99,8 @@ public class FileUtils
         File savesFTP = new File(Strings.savesDir);
         Path savesPath = savesFTP.toPath();
 
-        //File xmlFTP = new File(Strings.pathToXML);
-        //Path xmlPath = xmlFTP.toPath();
+        File xmlFTP = new File(Strings.xmlDir);
+        Path xmlPath = xmlFTP.toPath();
 
         //File propFTP = new File(Strings.pathToProps);
         //Path propPath = propFTP.toPath();
@@ -108,7 +108,7 @@ public class FileUtils
         try
         {
             Files.createDirectories(savesPath);
-            //Files.createDirectories(xmlPath);
+            Files.createDirectories(xmlPath);
             //Files.createDirectories(propPath);
         }
         catch (IOException e)

@@ -4,7 +4,7 @@ package logic.utilities;
  * Created by Jonah on 2/11/2016.
  */
 
-import local.Strings;
+import global.Strings;
 
 import javax.swing.*;
 import java.io.File;
