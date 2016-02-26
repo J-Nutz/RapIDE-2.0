@@ -31,6 +31,7 @@ public class MainPanel extends JPanel
     private final JComboBox<String> deleteFilesCB = new JComboBox<>();
 
     private final JButton insertBtn = new JButton("Insert");
+    private final JButton clearBtn = new JButton("Clear");
     private final JButton createBtn = new JButton("Create");
     private final JButton saveBtn = new JButton("Save");
     private final JButton openBtn = new JButton("Open File");
@@ -107,6 +108,10 @@ public class MainPanel extends JPanel
 
             rapTP.requestFocus();
         });
+
+        //ClearBtn
+        clearBtn.addActionListener(e -> resetRhymingList());
+        clearBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         //CreateBtn
         createBtn.addActionListener(e ->
@@ -203,12 +208,7 @@ public class MainPanel extends JPanel
         rhymingWordsList.setFixedCellWidth(100);
         rhymingWordsList.setAlignmentX(Component.CENTER_ALIGNMENT);
         rhymingWordsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        String[] emptyRhymeList = {"Click", "SomeBtn", "To", "Search", "For", "Rhyming", "Words"};
-        for(String word : emptyRhymeList)
-        {
-            rhymingWordsDLM.addElement(word);
-        }
+        resetRhymingList();
 
         addComponents();
     }
@@ -230,6 +230,17 @@ public class MainPanel extends JPanel
             component.setVisible(showing[0]);
             cancelBtn.setVisible(true);
             return true;
+        }
+    }
+
+    private void resetRhymingList()
+    {
+        rhymingWordsDLM.removeAllElements();
+
+        String[] emptyRhymeList = {"Click", "Rhyming Words", "To", "Search", "For", "Rhyming", "Words"};
+        for(String word : emptyRhymeList)
+        {
+            rhymingWordsDLM.addElement(word);
         }
     }
 
@@ -261,9 +272,11 @@ public class MainPanel extends JPanel
 
         //RightPanel
         rightPanel.add(rlScrollPane);
-        rightPanel.add(Box.createRigidArea(new Dimension(25, 25)));
-        //rightPanel.add(Box.createVerticalGlue());
+        rightPanel.add(Box.createRigidArea(new Dimension(50, 25)));
+        rightPanel.add(clearBtn);
+        rightPanel.add(Box.createRigidArea(new Dimension(50, 5)));
         rightPanel.add(insertBtn);
+        rightPanel.add(Box.createRigidArea(new Dimension(50, 5)));
 
         //Bottom Panel
         bottomPanel.add(createBtn);
