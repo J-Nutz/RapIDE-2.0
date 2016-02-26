@@ -15,17 +15,13 @@ import java.util.List;
 
 public class APIUtils
 {
-
     public APIUtils()
     {
-
+        System.out.println("API Utils Loaded");
     }
 
     public void hitAPI(String api, String word, String queries, DefaultListModel<String> dlm)
     {
-        final URLConnection[] APIconnection = new URLConnection[1];
-        final BufferedReader[] APIreader = new BufferedReader[1];
-
         SwingWorker<Void, String> apiWorker = new SwingWorker<Void, String>()
         {
             @Override
@@ -34,14 +30,13 @@ public class APIUtils
                 try
                 {
                     URL API = new URL(api + word);
+                    URLConnection connection = API.openConnection();
 
-                    APIconnection[0] = API.openConnection();
-
-                    APIreader[0] = new BufferedReader(new InputStreamReader(APIconnection[0].getInputStream()));
+                    BufferedReader APIreader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
                     String input;
 
-                    while((input = APIreader[0].readLine()) != null)
+                    while((input = APIreader.readLine()) != null)
                     {
                         publish(input);
                     }
@@ -50,7 +45,6 @@ public class APIUtils
                 {
                     e.printStackTrace();
                 }
-
                 return null;
             }
 
@@ -59,7 +53,7 @@ public class APIUtils
             {
                 try
                 {
-                    FileWriter mFileWriter = new FileWriter(new File(Strings.xmlDir, "xmlSave.xml"));
+                    FileWriter mFileWriter = new FileWriter(new File(Strings.xmlSave));
 
                     for(String input : chunks)
                     {
@@ -73,7 +67,7 @@ public class APIUtils
                     e.printStackTrace();
                 }
 
-                File xmlSave = new File(Strings.xmlDir + "xmlSave.xml");
+                File xmlSave = new File(Strings.xmlSave);
 
                 ParsingUtils parsingUtils = new ParsingUtils();
                 String[] rhymingWords = parsingUtils.parseXML("result", xmlSave);

@@ -72,6 +72,8 @@ public class MainPanel extends JPanel
         titleTF.setFont(new Font("Arial", Font.PLAIN, 22));
 
         //searchTF
+        searchTF.setPreferredSize(new Dimension(80, 20));
+        searchTF.setHorizontalAlignment(SwingConstants.CENTER);
         searchTF.setVisible(false);
 
         //BottomPanel
@@ -134,7 +136,7 @@ public class MainPanel extends JPanel
         {
             resetDeleteCB();
 
-            if(!setShowing(savesShowing, openBtn, saveFilesCB, "Open File", "Select"))
+            if(!isComponentShowing(savesShowing, openBtn, saveFilesCB, "Open File", "Select"))
             {
                 fileUtils.loadFile(rapTP, titleTF, Strings.savesDir, saveFilesCB.getSelectedItem().toString());
             }
@@ -147,7 +149,7 @@ public class MainPanel extends JPanel
 
             if(fileUtils.hasFiles(Strings.savesDir))
             {
-                if(!setShowing(deleteSavesShowing, deleteBtn, deleteFilesCB, "Delete Files", "Delete"))
+                if(!isComponentShowing(deleteSavesShowing, deleteBtn, deleteFilesCB, "Delete Files", "Delete"))
                 {
                     fileUtils.deleteFile(rapTP, titleTF, Strings.savesDir, deleteFilesCB.getSelectedItem().toString());
                     fileUtils.getFiles(deleteFilesCB, Strings.savesDir);
@@ -173,7 +175,7 @@ public class MainPanel extends JPanel
         //searchBtn
         searchBtn.addActionListener(e ->
         {
-            if(!setShowing(searchShowing, searchBtn, searchTF, "Rhyming Words", "Search"))
+            if(!isComponentShowing(searchShowing, searchBtn, searchTF, "Rhyming Words", "Search"))
             {
                 rhymingWordsDLM.removeAllElements();
 
@@ -189,6 +191,7 @@ public class MainPanel extends JPanel
         {
             resetOpenCB();
             resetDeleteCB();
+            resetSeachTF();
             cancelBtn.setVisible(false);
         });
 
@@ -200,6 +203,7 @@ public class MainPanel extends JPanel
         rhymingWordsList.setFixedCellWidth(100);
         rhymingWordsList.setAlignmentX(Component.CENTER_ALIGNMENT);
         rhymingWordsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
         String[] emptyRhymeList = {"Click", "SomeBtn", "To", "Search", "For", "Rhyming", "Words"};
         for(String word : emptyRhymeList)
         {
@@ -209,7 +213,7 @@ public class MainPanel extends JPanel
         addComponents();
     }
 
-    private boolean setShowing(boolean[] showing, JButton button, JComponent component, String message, String message2)
+    private boolean isComponentShowing(boolean[] showing, JButton button, JComponent component, String message, String message2)
     {
         if(showing[0] && button.getText().equals(message2))
         {
@@ -234,7 +238,6 @@ public class MainPanel extends JPanel
         deleteFilesCB.setVisible(false);
         deleteBtn.setText("Delete Files");
         deleteSavesShowing[0] = false;
-
     }
 
     private void resetOpenCB()
@@ -244,6 +247,13 @@ public class MainPanel extends JPanel
         savesShowing[0] = false;
     }
 
+    private void resetSeachTF()
+    {
+        searchTF.setVisible(false);
+        searchBtn.setText("Rhyming Words");
+        searchShowing[0] = false;
+    }
+
     private void addComponents()
     {
         //TopPanel
@@ -251,7 +261,8 @@ public class MainPanel extends JPanel
 
         //RightPanel
         rightPanel.add(rlScrollPane);
-        rightPanel.add(Box.createVerticalGlue());
+        rightPanel.add(Box.createRigidArea(new Dimension(25, 25)));
+        //rightPanel.add(Box.createVerticalGlue());
         rightPanel.add(insertBtn);
 
         //Bottom Panel

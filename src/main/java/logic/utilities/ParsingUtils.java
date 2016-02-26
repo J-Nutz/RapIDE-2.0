@@ -17,10 +17,9 @@ import java.io.File;
 
 public class ParsingUtils
 {
-
     public ParsingUtils()
     {
-
+        System.out.println("Parsing Utils Loaded");
     }
 
     public String[] parseJSON(String input)
@@ -86,7 +85,6 @@ public class ParsingUtils
                 rhymes = new String[]{"No", "Rhymes"};
             }
         }
-
         return rhymes;
     }
 }

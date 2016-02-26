@@ -6,9 +6,8 @@ package global;
 
 public class Strings
 {
-
     public static String appDataDir = System.getenv("APPDATA");
     public static String savesDir = appDataDir + "\\RapIDE\\Saves\\";
     public static String xmlDir = appDataDir + "\\RapIDE\\XML\\";
-
+    public static String xmlSave = xmlDir + "xmlSave.xml";
 }
