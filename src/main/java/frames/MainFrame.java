@@ -31,7 +31,6 @@ public class MainFrame
         mainFrame.setBackground(Color.gray);
         mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        //mainFrame.setPreferredSize(new Dimension(750, 650));
         mainFrame.setLocationRelativeTo(null);
         mainFrame.pack();
         mainFrame.setVisible(true);
@@ -49,7 +48,7 @@ public class MainFrame
         //MainFrame
         mainFrame.add(containerPanel);
 
-        //Which Panel To Show
+        //Which View To Show
         cardLayout.show(containerPanel, "Login");
     }
 

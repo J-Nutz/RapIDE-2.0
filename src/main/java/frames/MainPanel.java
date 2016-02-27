@@ -14,6 +14,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.io.IOException;
+import java.net.URL;
 
 import static frames.MainFrame.showPanel;
 
@@ -99,7 +100,7 @@ public class MainPanel extends JPanel
             StyledDocument styledDocument = rapTP.getStyledDocument();
             try
             {
-                styledDocument.insertString(rapTP.getCaretPosition(), rhymingWordsList.getSelectedValue(), null);
+                styledDocument.insertString(rapTP.getCaretPosition(), rhymingWordsList.getSelectedValue() + " ", null);
             }
             catch(BadLocationException e1)
             {
@@ -123,16 +124,24 @@ public class MainPanel extends JPanel
         //SaveBtn
         saveBtn.addActionListener(e ->
         {
-            try
+            if(!titleTF.getText().isEmpty())
             {
-                saver.save(rapTP, titleTF);
-                System.out.println("Saving: " + titleTF.getText());
-                fileUtils.getFiles(saveFilesCB, Strings.savesDir);
-                fileUtils.getFiles(deleteFilesCB, Strings.savesDir);
+                try
+                {
+                    saver.save(rapTP, titleTF);
+                    System.out.println("Saving: " + titleTF.getText());
+                    fileUtils.getFiles(saveFilesCB, Strings.savesDir);
+                    fileUtils.getFiles(deleteFilesCB, Strings.savesDir);
+                    setTempInfo("Saved!", "Save", 1500, saveBtn);
+                }
+                catch(IOException e1)
+                {
+                    e1.printStackTrace();
+                }
             }
-            catch(IOException e1)
+            else
             {
-                e1.printStackTrace();
+                setTempInfo("No Title", "Save", 1500, saveBtn);
             }
         });
 
@@ -140,18 +149,24 @@ public class MainPanel extends JPanel
         openBtn.addActionListener(e ->
         {
             resetDeleteCB();
+            resetSearchTF();
 
-            if(!isComponentShowing(savesShowing, openBtn, saveFilesCB, "Open File", "Select"))
+            if(isEmpty(saveFilesCB))
             {
-                fileUtils.loadFile(rapTP, titleTF, Strings.savesDir, saveFilesCB.getSelectedItem().toString());
+                setTempInfo("No Saves", "Open File", 1500, openBtn);
+            }
+            else
+            {
+                if(!isComponentShowing(savesShowing, openBtn, saveFilesCB, "Open File", "Select"))
+                {
+                    fileUtils.loadFile(rapTP, titleTF, Strings.savesDir, saveFilesCB.getSelectedItem().toString());
+                }
             }
         });
 
         //DeleteBtn
         deleteBtn.addActionListener(e1 ->
         {
-            Timer deleteTimer;
-
             if(fileUtils.hasFiles(Strings.savesDir))
             {
                 if(!isComponentShowing(deleteSavesShowing, deleteBtn, deleteFilesCB, "Delete Files", "Delete"))
@@ -163,23 +178,19 @@ public class MainPanel extends JPanel
             }
             else
             {
-                deleteBtn.setText("No Files");
-                deleteTimer = new Timer(1500, null);
-                deleteTimer.addActionListener(e ->
-                {
-                    deleteBtn.setText("Delete File");
-                    deleteTimer.stop();
-                });
-
-                deleteTimer.start();
+                setTempInfo("No Files", "Delete Files", 1500, deleteBtn);
             }
 
             resetOpenCB();
+            resetSearchTF();
         });
 
         //searchBtn
         searchBtn.addActionListener(e ->
         {
+            resetOpenCB();
+            resetDeleteCB();
+
             if(!isComponentShowing(searchShowing, searchBtn, searchTF, "Rhyming Words", "Search"))
             {
                 rhymingWordsDLM.removeAllElements();
@@ -213,9 +224,29 @@ public class MainPanel extends JPanel
         addComponents();
     }
 
+    private boolean isEmpty(JComboBox cb)
+    {
+        return cb.getItemCount() <= 0;
+    }
+
+    private void setTempInfo(String tempMessage, String finalMessage, int time, JButton button)
+    {
+        Timer tempTimer = new Timer(time, null);
+
+        button.setText(tempMessage);
+
+        tempTimer.addActionListener(e ->
+        {
+            button.setText(finalMessage);
+            tempTimer.stop();
+        });
+
+        tempTimer.start();
+    }
+
     private boolean isComponentShowing(boolean[] showing, JButton button, JComponent component, String message, String message2)
     {
-        if(showing[0] && button.getText().equals(message2))
+        if(showing[0]/* && button.getText().equals(message2)*/)
         {
             showing[0] = false;
             button.setText(message);
@@ -285,9 +316,9 @@ public class MainPanel extends JPanel
         bottomPanel.add(openBtn);
         bottomPanel.add(deleteFilesCB);
         bottomPanel.add(deleteBtn);
-        bottomPanel.add(settingsBtn);
         bottomPanel.add(searchTF);
         bottomPanel.add(searchBtn);
+        bottomPanel.add(settingsBtn);
         bottomPanel.add(cancelBtn);
 
         //Main Panel

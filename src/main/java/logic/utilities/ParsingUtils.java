@@ -58,7 +58,7 @@ public class ParsingUtils
 
             doc.getDocumentElement().normalize();
 
-            NodeList nList = doc.getElementsByTagName(tag); //"result"
+            NodeList nList = doc.getElementsByTagName(tag);
 
             for(int temp = 0; temp < nList.getLength(); temp++)
             {
