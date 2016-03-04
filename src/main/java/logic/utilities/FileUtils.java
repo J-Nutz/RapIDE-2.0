@@ -12,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -91,6 +92,38 @@ public class FileUtils
         catch(Exception de)
         {
             System.out.println("Error Deleting File: " + de.getMessage());
+        }
+    }
+
+    public String removeBannedChars(String wordToEdit)
+    {
+        char[] bannedCharArray = {'/', ':', '*', '?', '<', '>', '|', '"', '\\'};
+        for (char charToRemove : bannedCharArray)
+        {
+            wordToEdit = wordToEdit.replace("" + charToRemove, "");
+        }
+
+        return wordToEdit;
+    }
+
+    public void renameFile(String fileName, String newName)
+    {
+        Path mPath = FileSystems.getDefault().getPath(Strings.savesDir + fileName);
+
+        if(hasFiles(Strings.savesDir))
+        {
+            try
+            {
+                Files.move(mPath, mPath.resolveSibling(removeBannedChars(newName)));
+            }
+            catch(IOException e1)
+            {
+                e1.printStackTrace();
+            }
+        }
+        else
+        {
+            System.out.println("Not Renaming Anything");
         }
     }
 

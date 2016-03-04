@@ -11,8 +11,11 @@ import logic.utilities.Saver;
 
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
+import javax.swing.text.JTextComponent;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -28,9 +31,11 @@ public class MainPanel extends JPanel
     private final JTextPane rapTP = new JTextPane();
     private final JTextField titleTF = new JTextField("Enter Title");
     private final JTextField searchTF = new JTextField("Enter Word");
+    private final JTextField newNameTF = new JTextField("Enter Name");
 
     private final JComboBox<String> saveFilesCB = new JComboBox<>();
     private final JComboBox<String> deleteFilesCB = new JComboBox<>();
+    private final JComboBox<String> renameFilesCB = new JComboBox<>();
 
     private final JButton insertBtn = new JButton("Insert");
     private final JButton clearBtn = new JButton("Clear");
@@ -38,6 +43,7 @@ public class MainPanel extends JPanel
     private final JButton saveBtn = new JButton("Save");
     private final JButton openBtn = new JButton("Open File");
     private final JButton deleteBtn = new JButton("Delete Files");
+    private final JButton renameBtn = new JButton("Rename File");
     private final JButton settingsBtn = new JButton("Settings");
     private final JButton searchBtn = new JButton("Rhyming Words");
     private final JButton cancelBtn = new JButton("Cancel");
@@ -99,17 +105,35 @@ public class MainPanel extends JPanel
             }
         });
 
+        //NewNameTF
+        newNameTF.setVisible(false);
+        newNameTF.setPreferredSize(new Dimension(90, 24));
+        newNameTF.setHorizontalAlignment(SwingConstants.CENTER);
+
+        newNameTF.addMouseListener(new MouseAdapter()
+        {
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                super.mouseClicked(e);
+                newNameTF.setText("");
+            }
+        });
+
         //BottomPanel
         bottomPanel.setBackground(Color.lightGray);
 
         //SaveFilesCB
-        saveFilesCB.setBorder(null);
         fileUtils.getFiles(saveFilesCB, Strings.savesDir);
         saveFilesCB.setVisible(false);
 
         //DeleteFilesCB
         fileUtils.getFiles(deleteFilesCB, Strings.savesDir);
         deleteFilesCB.setVisible(false);
+
+        //renameFilesCB
+        fileUtils.getFiles(renameFilesCB, Strings.savesDir);
+        renameFilesCB.setVisible(false);
 
         //RlScrollPane
         rlScrollPane.setBorder(null);
@@ -173,41 +197,76 @@ public class MainPanel extends JPanel
             resetDeleteCB();
             resetSearchTF();
 
-            if(!fileUtils.hasFiles(Strings.savesDir))
+            if(!isComponentShowing(savesShowing, openBtn, saveFilesCB, "Open File", "Select"))
             {
-                setTempInfo("No Saves", "Open File", 1500, openBtn);
+                fileUtils.loadFile(rapTP, titleTF, Strings.savesDir, saveFilesCB.getSelectedItem().toString());
             }
             else
             {
-                if(!isComponentShowing(savesShowing, openBtn, saveFilesCB, "Open File", "Select"))
-                {
-                    fileUtils.loadFile(rapTP, titleTF, Strings.savesDir, saveFilesCB.getSelectedItem().toString());
-                }
+                setTempInfo("No Saves", "Open File", 1500, openBtn);
             }
         });
 
         //DeleteBtn
         deleteBtn.addActionListener(e1 ->
         {
-            if(fileUtils.hasFiles(Strings.savesDir))
+            resetOpenCB();
+            resetSearchTF();
+
+            if(!isComponentShowing(deleteSavesShowing, deleteBtn, deleteFilesCB, "Delete Files", "Delete"))
             {
-                if(!isComponentShowing(deleteSavesShowing, deleteBtn, deleteFilesCB, "Delete Files", "Delete"))
-                {
-                    fileUtils.deleteFile(rapTP, titleTF, Strings.savesDir, deleteFilesCB.getSelectedItem().toString());
-                    fileUtils.getFiles(deleteFilesCB, Strings.savesDir);
-                    fileUtils.getFiles(saveFilesCB, Strings.savesDir);
-                }
+                fileUtils.deleteFile(rapTP, titleTF, Strings.savesDir, deleteFilesCB.getSelectedItem().toString());
+                fileUtils.getFiles(deleteFilesCB, Strings.savesDir);
+                fileUtils.getFiles(saveFilesCB, Strings.savesDir);
             }
             else
             {
                 setTempInfo("No Files", "Delete Files", 1500, deleteBtn);
             }
-
-            resetOpenCB();
-            resetSearchTF();
         });
 
-        //searchBtn
+        //RenameBtn
+        final boolean[] isFirstClick = {true};
+        final int[] timesClicked = {0};
+
+        renameBtn.addActionListener(e ->
+        {
+            String fileName = renameFilesCB.getSelectedItem().toString();
+            resetDeleteCB();
+            resetOpenCB();
+            resetSearchTF();
+
+            if(isFirstClick[0] && timesClicked[0] == 0)
+            {
+                timesClicked[0]++;
+                renameFilesCB.setVisible(true);
+                renameBtn.setText("Select");
+            }
+            else if(timesClicked[0] == 1)
+            {
+                isFirstClick[0] = false;
+                timesClicked[0]++;
+                fileName = renameFilesCB.getSelectedItem().toString();
+                renameFilesCB.setVisible(false);
+                newNameTF.setVisible(true);
+                renameBtn.setText("Rename");
+            }
+            else
+            {
+                timesClicked[0] = 0;
+                isFirstClick[0] = true;
+                fileUtils.renameFile(fileName, newNameTF.getText());
+                fileUtils.getFiles(saveFilesCB, Strings.savesDir);
+                fileUtils.getFiles(deleteFilesCB, Strings.savesDir);
+                fileUtils.getFiles(renameFilesCB, Strings.savesDir);
+                newNameTF.setVisible(false);
+                renameBtn.setText("Rename Files");
+                revalidate();
+                repaint();
+            }
+        });
+
+        //SearchBtn
         searchBtn.addActionListener(e ->
         {
             resetOpenCB();
@@ -333,6 +392,9 @@ public class MainPanel extends JPanel
         bottomPanel.add(openBtn);
         bottomPanel.add(deleteFilesCB);
         bottomPanel.add(deleteBtn);
+        bottomPanel.add(renameFilesCB);
+        bottomPanel.add(newNameTF);
+        bottomPanel.add(renameBtn);
         bottomPanel.add(searchTF);
         bottomPanel.add(searchBtn);
         bottomPanel.add(settingsBtn);

@@ -1,6 +1,7 @@
 Decisions:
     - New Pane for deleting/renaming/etc?
     - "Create" button that then shows "Save" button after file is created or loaded?
+    - JButton interface?
 
 Features To Implement:
     - Settings
