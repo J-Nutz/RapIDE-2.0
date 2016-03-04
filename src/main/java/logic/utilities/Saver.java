@@ -28,7 +28,7 @@ public class Saver
             protected Void doInBackground() throws Exception
             {
                 fileWriter.write(titleField.getText() + "\n");
-                fileWriter.write(textPane.getText());
+                fileWriter.write(removeBannedChars(textPane.getText()));
 
                 return null;
             }
@@ -54,5 +54,16 @@ public class Saver
         };
 
         saver.execute();
+    }
+
+    private String removeBannedChars(String wordToEdit)
+    {
+        char[] bannedCharArray = {'/', ':', '*', '?', '<', '>', '|', '"', '\\'};
+        for (char charToRemove : bannedCharArray)
+        {
+            wordToEdit = wordToEdit.replace("" + charToRemove, "");
+        }
+
+        return wordToEdit;
     }
 }
