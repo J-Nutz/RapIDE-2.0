@@ -6,6 +6,8 @@ package frames;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Arrays;
 
 import static frames.MainFrame.showPanel;
@@ -30,10 +32,30 @@ public class EntrancePanel extends JPanel
         usernameTF.setAlignmentX(Component.CENTER_ALIGNMENT);
         usernameTF.setBorder(null);
 
+        usernameTF.addMouseListener(new MouseAdapter()
+        {
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                super.mouseClicked(e);
+                usernameTF.setText("");
+            }
+        });
+
         //PasswordPF
         passwordPF.setMaximumSize(new Dimension(100, 40));
         passwordPF.setAlignmentX(Component.CENTER_ALIGNMENT);
         passwordPF.setBorder(null);
+
+        passwordPF.addMouseListener(new MouseAdapter()
+        {
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                super.mouseClicked(e);
+                passwordPF.setText("");
+            }
+        });
 
         //LoginBtns
         loginBtn.setMaximumSize(new Dimension(110, 40));

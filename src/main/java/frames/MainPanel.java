@@ -13,6 +13,8 @@ import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 import static frames.MainFrame.showPanel;
@@ -72,10 +74,30 @@ public class MainPanel extends JPanel
         titleTF.setBorder(null);
         titleTF.setFont(new Font("Arial", Font.PLAIN, 22));
 
+        titleTF.addMouseListener(new MouseAdapter()
+        {
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                super.mouseClicked(e);
+                titleTF.setText("");
+            }
+        });
+
         //searchTF
         searchTF.setPreferredSize(new Dimension(90, 24));
         searchTF.setHorizontalAlignment(SwingConstants.CENTER);
         searchTF.setVisible(false);
+
+        searchTF.addMouseListener(new MouseAdapter()
+        {
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                super.mouseClicked(e);
+                searchTF.setText("");
+            }
+        });
 
         //BottomPanel
         bottomPanel.setBackground(Color.lightGray);
