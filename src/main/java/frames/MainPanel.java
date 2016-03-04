@@ -73,7 +73,7 @@ public class MainPanel extends JPanel
         titleTF.setFont(new Font("Arial", Font.PLAIN, 22));
 
         //searchTF
-        searchTF.setPreferredSize(new Dimension(80, 20));
+        searchTF.setPreferredSize(new Dimension(90, 24));
         searchTF.setHorizontalAlignment(SwingConstants.CENTER);
         searchTF.setVisible(false);
 
@@ -81,6 +81,7 @@ public class MainPanel extends JPanel
         bottomPanel.setBackground(Color.lightGray);
 
         //SaveFilesCB
+        saveFilesCB.setBorder(null);
         fileUtils.getFiles(saveFilesCB, Strings.savesDir);
         saveFilesCB.setVisible(false);
 
@@ -150,7 +151,7 @@ public class MainPanel extends JPanel
             resetDeleteCB();
             resetSearchTF();
 
-            if(fileUtils.hasFiles(Strings.savesDir))
+            if(!fileUtils.hasFiles(Strings.savesDir))
             {
                 setTempInfo("No Saves", "Open File", 1500, openBtn);
             }
