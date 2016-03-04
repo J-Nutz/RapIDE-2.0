@@ -14,7 +14,6 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.io.IOException;
-import java.net.URL;
 
 import static frames.MainFrame.showPanel;
 
@@ -151,7 +150,7 @@ public class MainPanel extends JPanel
             resetDeleteCB();
             resetSearchTF();
 
-            if(isEmpty(saveFilesCB))
+            if(fileUtils.hasFiles(Strings.savesDir))
             {
                 setTempInfo("No Saves", "Open File", 1500, openBtn);
             }
@@ -224,11 +223,6 @@ public class MainPanel extends JPanel
         addComponents();
     }
 
-    private boolean isEmpty(JComboBox cb)
-    {
-        return cb.getItemCount() <= 0;
-    }
-
     private void setTempInfo(String tempMessage, String finalMessage, int time, JButton button)
     {
         Timer tempTimer = new Timer(time, null);
@@ -246,7 +240,7 @@ public class MainPanel extends JPanel
 
     private boolean isComponentShowing(boolean[] showing, JButton button, JComponent component, String message, String message2)
     {
-        if(showing[0]/* && button.getText().equals(message2)*/)
+        if(showing[0])
         {
             showing[0] = false;
             button.setText(message);
