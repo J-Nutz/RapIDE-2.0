@@ -3,10 +3,25 @@ version '0.0.1.a'
 
 apply plugin: 'java'
 
-sourceCompatibility = 1.5
+//noinspection GroovyUnusedAssignment
+sourceCompatibility = 1.8
 
 repositories {
+    mavenCentral()
 }
 
 dependencies {
+    compile 'org.json:json:20160212'
+}
+
+jar {
+
+    destinationDir = file("C:\\Users\\Jonah\\Documents\\Builds\\RapIDE-2.0")
+
+    manifest {
+        attributes 'Main-Class': 'frames.MainFrame'
+    }
+
+    from configurations.compile.collect{ it.isDirectory() ? it : zipTree(it) }
+
 }
