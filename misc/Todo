@@ -12,6 +12,7 @@ Features Implemented:
     - Only be able to have one function (Open, Load, Delete) CB open at a time
     - Cancel button to cancel loading / deleting / etc
     - Swing Worker for API Hit
+    - Faster API Hit/Parsing
 
 Bugs:
     -

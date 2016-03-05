@@ -7,6 +7,7 @@ package logic.utilities;
 import global.Strings;
 
 import javax.swing.*;
+import javax.xml.stream.XMLStreamException;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -67,12 +68,19 @@ public class APIUtils
                     e.printStackTrace();
                 }
 
-                File xmlSave = new File(Strings.xmlSave);
-
                 ParsingUtils parsingUtils = new ParsingUtils();
-                String[] rhymingWords = parsingUtils.parseXML("result", xmlSave);
 
-                if(!rhymingWords[0].equals(" "))
+                String[] rhymingWords = null;
+                try
+                {
+                    rhymingWords = parsingUtils.parseXML(Strings.xmlSave);
+                }
+                catch(FileNotFoundException | XMLStreamException e)
+                {
+                    e.printStackTrace();
+                }
+
+                if(rhymingWords != null && !rhymingWords[0].equals(" "))
                 {
                     for(String rhymeWord : rhymingWords)
                     {

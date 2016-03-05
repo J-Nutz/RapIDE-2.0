@@ -6,14 +6,13 @@ package logic.utilities;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 public class ParsingUtils
 {
@@ -46,45 +45,31 @@ public class ParsingUtils
         return results;
     }
 
-    public String[] parseXML(String tag, File xml)
+    public String[] parseXML(String file) throws FileNotFoundException, XMLStreamException
     {
-        String[] rhymes = null;
+        String[] rhymes = new String[250];
+        XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+        InputStream in = new FileInputStream(file);
+        XMLStreamReader streamReader = inputFactory.createXMLStreamReader(in);
+        streamReader.nextTag();
+        streamReader.nextTag();
 
-        try
+        while(streamReader.hasNext())
         {
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(xml);
-
-            doc.getDocumentElement().normalize();
-
-            NodeList nList = doc.getElementsByTagName(tag);
-
-            for(int temp = 0; temp < nList.getLength(); temp++)
+            if(streamReader.isStartElement())
             {
-                Node nNode = nList.item(temp);
-
-                if(nNode.getNodeType() == Node.ELEMENT_NODE)
+                switch (streamReader.getLocalName())
                 {
-                    Element eElement = (Element) nNode;
-
-                    String tempRhymes = eElement.getElementsByTagName("rhymes").item(0).getTextContent();
-
-                    rhymes = tempRhymes.split(",");
+                    case "rhymes":
+                    {
+                        rhymes = streamReader.getElementText().split(",");
+                        break;
+                    }
                 }
             }
+            streamReader.next();
         }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-        finally
-        {
-            if(rhymes == null || rhymes.length == 0)
-            {
-                rhymes = new String[]{"No", "Rhymes"};
-            }
-        }
+
         return rhymes;
     }
 }
