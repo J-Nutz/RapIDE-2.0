@@ -12,14 +12,14 @@ import java.util.Arrays;
 
 import static frames.MainFrame.showPanel;
 
-public class EntrancePanel extends JPanel
+public class LoginPanel extends JPanel
 {
     private final JTextField usernameTF = new JTextField("Username");
     private final JPasswordField passwordPF = new JPasswordField("Password");
     private final JButton loginBtn = new JButton();
     private final JLabel loginStatusLbl = new JLabel("Please Enter Username And Password");
 
-    public EntrancePanel()
+    public LoginPanel()
     {
         //This
         setBackground(Color.gray);
@@ -66,7 +66,7 @@ public class EntrancePanel extends JPanel
         {
             char[] pass = {'1', '2', '3', '4'};
             boolean goodCredentials = usernameTF.getText().equalsIgnoreCase("Jonah") && Arrays.equals(passwordPF.getPassword(), pass);
-            if(!goodCredentials)
+            if(goodCredentials)
             {
                 loginStatusLbl.setForeground(Color.black);
                 loginStatusLbl.setText("Please Enter Username And Password");
@@ -82,7 +82,6 @@ public class EntrancePanel extends JPanel
                 loginStatusLbl.setText("Invalid Username Or Password");
             }
         });
-
         addComponents();
     }
 

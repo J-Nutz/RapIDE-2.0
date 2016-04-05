@@ -6,6 +6,9 @@ Decisions:
 Features To Implement:
     - Settings
     - Better Util Classes
+    - Actual Login/Login Database
+    - Different Synth L&F's
+    - Better Menu Button Logic
 
 Features Implemented:
     - Only delete rap pane content if file deleted is one currently loaded

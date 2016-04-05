@@ -14,7 +14,8 @@ public class MainFrame
     private final JFrame mainFrame = new JFrame();
     private final static JPanel containerPanel = new JPanel();
     private final static CardLayout cardLayout = new CardLayout(5, 5);
-    private final EntrancePanel entrancePanel = new EntrancePanel();
+    private final SignUpPanel signupPanel = new SignUpPanel();
+    private final LoginPanel loginPanel = new LoginPanel();
     private final MainPanel mainPanel = new MainPanel();
     private final SettingsPanel settingsPanel = new SettingsPanel();
 
@@ -27,6 +28,8 @@ public class MainFrame
         containerPanel.setBackground(Color.gray);
         containerPanel.setLayout(cardLayout);
 
+        addComponents();
+
         //MainFrame
         mainFrame.setBackground(Color.gray);
         mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -34,14 +37,13 @@ public class MainFrame
         mainFrame.setLocationRelativeTo(null);
         mainFrame.pack();
         mainFrame.setVisible(true);
-
-        addComponents();
     }
 
     private void addComponents()
     {
         //ContainerPanel
-        containerPanel.add(entrancePanel, "Login");
+        containerPanel.add(signupPanel, "SignUp");
+        containerPanel.add(loginPanel, "Login");
         containerPanel.add(mainPanel, "Main");
         containerPanel.add(settingsPanel, "Settings");
 
