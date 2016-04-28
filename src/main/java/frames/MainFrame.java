@@ -13,7 +13,7 @@ public class MainFrame
 {
     private final JFrame mainFrame = new JFrame();
     private final static JPanel containerPanel = new JPanel();
-    private final static CardLayout cardLayout = new CardLayout(5, 5);
+    private final static CardLayout cardLayout = new CardLayout();
     private final SignUpPanel signupPanel = new SignUpPanel();
     private final LoginPanel loginPanel = new LoginPanel();
     private final MainPanel mainPanel = new MainPanel();
@@ -21,13 +21,7 @@ public class MainFrame
 
     public MainFrame()
     {
-        FileUtils fileUtils = new FileUtils();
-        fileUtils.createBaseFolders();
-
-        //ContainerPanel
-        containerPanel.setBackground(Color.gray);
-        containerPanel.setLayout(cardLayout);
-
+        initComponents();
         addComponents();
 
         //MainFrame
@@ -37,6 +31,16 @@ public class MainFrame
         mainFrame.setLocationRelativeTo(null);
         mainFrame.pack();
         mainFrame.setVisible(true);
+    }
+
+    private void initComponents()
+    {
+        FileUtils fileUtils = new FileUtils();
+        fileUtils.createBaseFolders();
+
+        //ContainerPanel
+        containerPanel.setBackground(Color.gray);
+        containerPanel.setLayout(cardLayout);
     }
 
     private void addComponents()

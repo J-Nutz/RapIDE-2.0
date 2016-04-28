@@ -14,17 +14,25 @@ import static frames.MainFrame.showPanel;
 
 public class LoginPanel extends JPanel
 {
+    private final JLabel loginStatusLbl = new JLabel("Please Enter Username And Password");
     private final JTextField usernameTF = new JTextField("Username");
     private final JPasswordField passwordPF = new JPasswordField("Password");
     private final JButton loginBtn = new JButton();
-    private final JLabel loginStatusLbl = new JLabel("Please Enter Username And Password");
+    private final JButton createActBtn = new JButton("Create Account");
 
     public LoginPanel()
+    {
+        initComponents();
+        addComponents();
+    }
+
+    private void initComponents()
     {
         //This
         setBackground(Color.gray);
 
         //Login Label
+        loginStatusLbl.setFont(new Font(null, Font.PLAIN, 16));
         loginStatusLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         //UsernameTF
@@ -82,7 +90,10 @@ public class LoginPanel extends JPanel
                 loginStatusLbl.setText("Invalid Username Or Password");
             }
         });
-        addComponents();
+
+        //Create Account Button
+        createActBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        createActBtn.addActionListener(e -> showPanel("SignUp"));
     }
 
     private void addComponents()
@@ -97,6 +108,8 @@ public class LoginPanel extends JPanel
         add(passwordPF);
         add(Box.createVerticalStrut(15));
         add(loginBtn);
+        add(Box.createVerticalStrut(5));
+        add(createActBtn);
         add(Box.createVerticalGlue());
     }
 }

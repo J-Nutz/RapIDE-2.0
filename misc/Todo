@@ -9,6 +9,7 @@ Features To Implement:
     - Actual Login/Login Database
     - Different Synth L&F's
     - Better Menu Button Logic
+    - Inappropriate words or not ?
 
 Features Implemented:
     - Only delete rap pane content if file deleted is one currently loaded
