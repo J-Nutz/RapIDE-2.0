@@ -2,4 +2,4 @@
 Remake of RapIDE due to new knowledge of Swing,
 and horrible OOP of last version.
 
-Stupid static...
+Gotta start somewhere
